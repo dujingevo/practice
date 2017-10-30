@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>围棋PK</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+	
+</head>
+<body>
+	<canvas onclick="play(event);" id="Mycanvas" width="600px" height="600px" style="background-image: url(images/bak.jpg)"></canvas>
+	<button onclick="window.location.reload()">重新开始</button>
+	<script>
+
+		
+			var maps = new Array(15);
+			for(var i=0;i<15;i++){
+				maps[i] = new Array(15);
+				for(var j=0;j<15;j++){
+					maps[i][j] = 0;
+				}
+			}
+	
+			var canvas = document.getElementById("Mycanvas");
+			var ctx = canvas.getContext("2d");
+			ctx.strokeStyle = "#333";
+			// ctx.lineWidth =5;
+			for(var i=0;i<15;i++){
+				for(var j=0;j<15;j++){
+					ctx.strokeRect(i*40,j*40,40,40);
+
+				}
+			}
+			//计算下棋位置
+			//定义变量存储黑白棋
+			
+		var black = new Image();
+		var white = new Image();
+		black.src = "images/black.png";
+		white.src = "images/white.png"; 
+		var flag = true;
+		function play(e){
+				
+				var x = e.clientX;
+				var y = e.clientY;
+				var row = parseInt((x-20) / 40)+1;
+				var col = parseInt((y-20)  / 40)+1;
+			
+				if(maps[row][col] == 0){
+					if(flag){
+						ctx.drawImage(black,row*40 - 20,col*40-20);
+						maps[row][col] = 1;
+						flag = false;
+						count = maps[row,col];
+						isWin(1);
+						
+					}
+					else {
+						ctx.drawImage(white,row*40 - 20,col*40-20);
+						maps[row][col] = 2;
+						flag = true;
+						count = maps[row,col];
+						isWin(2);
+	
+					}
+				}
+
+		}	
+		function isWin(count)
+      {
+      	//黑棋
+
+      
+      	for(var i=1;i<15;i++)
+      	{
+      		for(var j=1;j<15;j++)
+      		{
+      			
+      			if(maps[i][j]==count && maps[i][j+1]==count && maps[i][j+2]==count && maps[i][j+3]==count && maps[i][j+4]==count){
+      					
+      					if(count==1){
+      						ctx.font = "bold 50px Courier New";
+      						ctx.fillStyle ='red';
+      						ctx.fillText("黑旗胜利！",200,250);
+      					}
+      					else {
+      						ctx.font = "bold 50px Courier New";
+      						ctx.fillStyle ='red';
+      						ctx.fillText("白旗胜利！",250,250);
+      					}
+      				
+      			}
+      			
+      			
+      			else if(maps[i][j]==count && maps[i+1][j]==count && maps[i+2][j]==count && maps[i+3][j]==count && maps[i+4][j]==count){
+      				if(count==1){
+      						ctx.font = "bold 50px Courier New";
+      						ctx.fillStyle ='red';
+      						ctx.fillText("黑旗胜利！",200,250);
+      					}
+      					else {
+      						ctx.font = "bold 50px Courier New";
+      						ctx.fillStyle ='red';
+      						ctx.fillText("白旗胜利！",200,250);
+      					}
+      			}
+      		
+      			else if(j<11 && maps[i][j]==count && maps[i+1][j+1]==count && maps[i+2][j+2]==count && maps[i+3][j+3]==count && maps[i+4][j+4]==count){
+      				if(count==1){
+      						ctx.font = "bold 50px Courier New";
+      						ctx.fillStyle ='red';
+      						ctx.fillText("黑旗胜利！",200,250);
+      					}
+      					else {
+      						ctx.font = "bold 50px Courier New";
+      						ctx.fillStyle ='red';
+      						ctx.fillText("白旗胜利！",200,250);
+      					}
+      				
+      			}
+      		
+      			else if(i>4 && maps[i][j]==count && maps[i-1][j+1]==count && maps[i-2][j+2]==count && maps[i-3][j+3]==count && maps[i-4][j+4]==count){
+      				if(count==1){
+      						ctx.font = "bold 50px Courier New";
+      						ctx.fillStyle ='red';
+      						ctx.fillText("黑旗胜利！",200,250);
+      					}
+      					else {
+      						ctx.font = "bold 50px Courier New";
+      						ctx.fillStyle ='red';
+      						ctx.fillText("白旗胜利！",200,250);
+      					}
+      				
+      			}
+      			
+      		}
+      	}
+      }
+	</script>
+</body>
+</html>
